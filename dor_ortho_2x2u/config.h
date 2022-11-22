@@ -34,6 +34,7 @@
 
 // Caps Word 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+#define TAPPING_TERM 200
 
 // disabling stuff
 #undef LOCKING_SUPPORT_ENABLE

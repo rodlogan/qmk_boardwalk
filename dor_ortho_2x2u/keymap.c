@@ -56,10 +56,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_LWR] = LAYOUT_ortho_2x2u(
-        KC_MPLY,    KC_F1,        KC_F2,        KC_F3,         KC_F4,        KC_F5,        KC_F6,       KC_F7,       KC_F8,       KC_F9,       KC_F10,     KC_F11,      KC_F12,     KC_DEL,
-        KC_GRV,     LALT(KC_C),   KC_UP,        SEARCH,        KC_WREF,      _______,      _______,     _______,     _______,     _______,     KC_PSCR,    _______,     _______,    KC_BSLS,
-        KC_CAPS,    KC_LEFT,      KC_DOWN,      KC_RIGHT,      SGUI(KC_S),   _______,      KC_MYCM,     _______,     _______,     _______,     _______,    _______,     _______,    KC_PGUP, 
-        A(KC_RSFT), LCTL(KC_Z),   LCTL(KC_Y),   LCTL(KC_C),    RCS(KC_V),    COPYTAB,      KC_CALC,     KC_MUTE,     KC_VOLD,     KC_VOLU,     _______,    _______,     _______,    KC_RSFT,
+        KC_MPLY,    KC_F1,        KC_F2,        KC_F3,         KC_F4,        KC_F5,         KC_F6,       KC_F7,       KC_F8,       KC_F9,       KC_F10,     KC_F11,      KC_F12,     KC_DEL,
+        KC_GRV,     LALT(KC_C),   KC_UP,        SEARCH,        KC_WREF,      LCTL(KC_W),    _______,     _______,     _______,     _______,     KC_PSCR,    _______,     _______,    KC_BSLS,
+        KC_CAPS,    KC_LEFT,      KC_DOWN,      KC_RIGHT,      KC_WSCH,      _______,       KC_MYCM,     _______,     _______,     _______,     _______,    _______,     _______,    KC_PGUP, 
+        A(KC_RSFT), LCTL(KC_Z),   LCTL(KC_Y),   LCTL(KC_C),    RCS(KC_V),    COPYTAB,       KC_CALC,     KC_MUTE,     KC_VOLD,     KC_VOLU,     _______,    _______,     _______,    KC_RSFT,
         KC_LCTL,    _______,      _______,      _______,       _______,             _______,                   KC_DEL,             _______,     _______,      _______,    _______,    KC_RCTL
     ),
 
