@@ -131,13 +131,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 		  break;
 		   case WEMAIL:
 		   if (record->event.pressed) {
-			   SEND_STRING("dorgol@checkpoint.com");
+			   SEND_STRING("______");
 		   }
 		   return false;
 		   break;
 		  case EMAIL:
 		   if (record->event.pressed) {
-			   SEND_STRING("dor.golan@gmail.com");
+			   SEND_STRING("______");
+		   }
+		   return false;
+		   break;
+		  case PWD:
+		   if (record->event.pressed) {
+			  SEND_STRING("______");
 		   }
 		   return false;
 		   break;
@@ -169,12 +175,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 		   }
 		   return false;
 		   break;
-		 case PWD:
-		  if (record->event.pressed) {
-			  SEND_STRING("______");
-		  }
-		  return false;
-		  break;
+		 
 		 case LANG:
 		  if (record->event.pressed) {
 			  if (eng){
