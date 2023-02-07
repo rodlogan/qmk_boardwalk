@@ -171,7 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 		   break;
 		 case PWD:
 		  if (record->event.pressed) {
-			  SEND_STRING("Zion7989gol");
+			  SEND_STRING("______");
 		  }
 		  return false;
 		  break;
