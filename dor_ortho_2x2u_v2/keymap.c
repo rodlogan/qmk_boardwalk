@@ -15,13 +15,14 @@
 
 #include QMK_KEYBOARD_H
 
+bool is_rtl=false;
+
 // Layer shorthand
 enum layer {
     _BASE,
     _FN,
 	_LWR,
-	_RSE,
-	_GM
+	_RSE
 };
 
 enum keycodes {
@@ -39,7 +40,12 @@ enum keycodes {
   DQT,
   BS,
   LANG,
-  PARCHECK
+  BSWORD,
+  DELWORD,
+  DELBCPS,
+  BRACKETS,
+  CURLBRACKETS,
+  LINEDEL
   
 };
 
@@ -55,54 +61,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
      * | LSHIFT | Z      | X      | C      | V      | B      | PGDN   | ./>    | N      | M      | ?      | SHIFT  | UP     |SHFT/ENT|
      * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+-----------------+--------+--------|
-     * | LCTRL  | LGUI   |  FN   | LALT    |  LWR   |      SPACE      |  ENT   | RSE    | ALT    | RGUI   | HOME   | END    | CTRL   |
+     * | LCTRL  | LGUI   |  FN   | LALT    |  LWR   |      SPACE      |   ENTER/SHIFT   | ALT    | RGUI   | HOME   | END    | CTRL   |
      * '-----------------------------------------------------------------------------------------------------------------------------'
      */
 	[_BASE] = LAYOUT_ortho_2x2u(
 		KC_MUTE,    KC_1,      KC_2,      KC_3,      KC_4,        KC_5,        KC_VOLD,      KC_VOLU,		KC_6,      KC_7,       KC_8,       KC_9,       KC_0,        KC_BSPC,
 		KC_ESC,     KC_Q,      KC_W,      KC_E,      KC_R,        KC_T,        KC_LBRC,      KC_RBRC,       KC_Y,      KC_U,       KC_I,       KC_O,       KC_P,        KC_DEL,
-		KC_TAB,     KC_A,      KC_S,      KC_D,      KC_F,        KC_G,        KC_PGUP,      KC_PSCR,       KC_H,      KC_J,       KC_K,       KC_L,       KC_SCLN,     KC_QUOT,
+		KC_TAB,     KC_A,      KC_S,      KC_D,      KC_F,        KC_G,        KC_PGUP,      LSG(KC_S),       KC_H,      KC_J,       KC_K,       KC_L,       KC_SCLN,     KC_QUOT,
 		KC_LSFT,    KC_Z,      KC_X,      KC_C,      KC_V,        KC_B,        KC_PGDN,      KC_DEL,        KC_N,      KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,     KC_SFTENT,
 		KC_LCTL,    KC_LGUI,   KC_LALT,   TT(_FN),   MO(_LWR),          KC_SPACE,                  KC_SFTENT,          MO(_RSE),    KC_RGUI,    KC_HOME,    KC_END,      KC_RCTL
 	),
 
 	[_LWR] = LAYOUT_ortho_2x2u(
-        KC_MEDIA_PLAY_PAUSE,    KC_F1,        KC_F2,        KC_F3,         KC_F4,        KC_F5,         KC_F11,      KC_F12,      KC_F6,       KC_F7,       KC_F8,       KC_F9,       KC_F10,    KC_BSPC,
-        KC_GRV,     			LALT(KC_C),   KC_UP,        SEARCH,        LCTL(KC_T),   LCTL(KC_W),    _______,     _______,     KC_INS,      _______,     KC_PSCR,    _______,     _______,    KC_BSLS,
-        KC_CAPS,    			KC_LEFT,      KC_DOWN,      KC_RIGHT,      KC_WREF,      RCS(KC_T),     KC_MYCM,     _______,     _______,     _______,     _______,    _______,     _______,    KC_PGUP, 
-        KC_LSFT,    			LCTL(KC_A),   LCTL(KC_X),   LCTL(KC_C),    LCTL(KC_V),    COPYTAB,       KC_CALC,     KC_MUTE,     KC_VOLD,    KC_VOLU,     BS,   		PARCHECK,   	 DQT,        KC_RSFT,
-        KC_LCTL,    			_______,      _______,      _______,       _______,             _______,                   KC_DEL,             _______,     _______,    _______,     _______,    KC_RCTL
+        KC_MEDIA_PLAY_PAUSE,    KC_F1,        KC_F2,        KC_F3,         KC_F4,        KC_F5,         KC_F11,      KC_F12,      KC_F6,        KC_F7,       KC_F8,       KC_F9,           KC_F10,     KC_BSPC,	
+        KC_GRV,     			LALT(KC_C),   KC_UP,        SEARCH,        LCTL(KC_T),   LCTL(KC_W),    _______,     _______,     KC_PSCR,      _______,     KC_INS,     _______,          _______,    KC_BSLS,
+        KC_CAPS,    			KC_LEFT,      KC_DOWN,      KC_RIGHT,      C(KC_F),      RCS(KC_T),     KC_MYCM,     _______,     _______,      _______,     _______,    _______,     	   PAREN,      DQT, 
+        LANG,    		    	LCTL(KC_A),   LCTL(KC_X),   LCTL(KC_C),    LCTL(KC_V),   COPYTAB,       KC_CALC,     LINEDEL,     _______,      _______,     BS,   	     CURLBRACKETS,	   BRACKETS,   DELBCPS,
+        KC_LCTL,    			_______,      _______,      _______,       _______,             _______,                   KC_LSFT,             _______,     _______,    _______,          _______,    KC_RCTL
     ),
 
 	[_RSE] = LAYOUT_ortho_2x2u(
-        KC_GRV,      _______,   _______,   _______,   _______,   _______,     	_______,  		 _______,     		   _______,    _______,     		 _______,     _______,        _______,   		KC_BSPC,
-        _______,     _______,   WEMAIL,    EMAIL,     BR,        _______,			LCTL(KC_LSFT),   RCTL(KC_RSFT),        _______,    _______,   		 KC_INS,          _______,        PWD,       		KC_BSLS,
-        _______,     BS,   		PAREN,     DQT,   	  _______,   TG(_GM),   		_______,   		 _______,              KC_PLUS,    KC_MINS,   		 KC_EQL,          KC_HASH,        KC_AMPR,   		KC_PERC,
-        QK_RBT,      _______,   _______,   KC_CALC,   _______,   GUI_TOG,   		_______,    	 KC_MUTE,              KC_ASTR,    KC_UNDS,          KC_DQT,   		  KC_PIPE, 	      KC_BSLS,   		KC_RSFT,
-        QK_BOOT,     _______,   _______,   _______,   TG(_GM),           KC_BSPC,                             _______,           _______,    LCA(KC_DEL),               LCTL(KC_LSFT),  RCTL(KC_RSFT),    KC_RCTL
+        KC_GRV,      _______,   _______,   _______,   _______,   _______,     	_______,  		 _______,     		  _______,    _______,     	 _______,      _______,        _______,   		BSWORD,
+        _______,     _______,   WEMAIL,    EMAIL,     BR,        _______,		LCTL(KC_LSFT),   RCTL(KC_RSFT),       KC_TILD,    KC_GRV,   	 _______,       KC_AT,          PWD,       		DELWORD,
+        QK_RBT,      BS,   		PAREN,     DQT,   	  _______,   _______,   	_______,   		 _______,             KC_PLUS,    KC_MINS, 		 KC_UNDS,       KC_HASH,        KC_AMPR,   		KC_PIPE,
+        DB_TOGG,     _______,   _______,   KC_CALC,   _______,   GUI_TOG,   	_______,    	 KC_MUTE,             KC_ASTR,    KC_EQL,        KC_DQT,   	   KC_EXLM, 	   KC_BSLS,   		KC_PERC,
+        QK_BOOT,     _______,   _______,   _______,   _______,           KC_BSPC,                             _______,            _______,       LCA(KC_DEL),  LCTL(KC_LSFT),  RCTL(KC_RSFT),   KC_RCTL
     ),
 	
 	[_FN] = LAYOUT_ortho_2x2u(
         KC_MPLY,    KC_MPRV,    	KC_MNXT,    	  KC_F3,      	  KC_F4,        	KC_F5,      	KC_F6,        KC_NUM,    KC_BACKSLASH,   KC_PAST,    KC_F10,     KC_F11,     KC_F12,    KC_BSPC,
         KC_WH_U,    LSFT(KC_HOME),  LCTL(KC_HOME),    LSFT(KC_END),   KC_WREF,      	_______,    	_______,      KC_7,      KC_8,           KC_9,       KC_PSLS,    _______,    _______,   KC_DEL,
         KC_WH_D,    KC_HOME,    	LCTL(KC_END),     KC_END,     	  RCS(KC_TAB),      LCTL(KC_TAB),   KC_MINS,      KC_4,      KC_5,           KC_6,       KC_MINS,    _______,    _______,   _______, 
-        LANG, LCTL(KC_Z),     LCTL(KC_Y),   	  LCTL(KC_C),     RCS(KC_V),    	_______,    	KC_PPLS,     KC_1,      KC_2,           KC_3,       KC_PPLS,    _______,    _______,   _______,
-        KC_APP,     _______,        RCS(KC_LEFT),         _______,            RCS(KC_RIGHT),           KC_ENT,      KC_0,                KC_DOT,     _______,    _______,    _______,   _______
-    ),
-	
-	[_GM] = LAYOUT_ortho_2x2u(
-        KC_MUTE,    KC_1,      KC_2,      KC_3,      KC_4,        KC_5,        KC_VOLD,      KC_VOLU,		KC_6,      KC_7,       KC_8,       KC_9,       KC_0,        KC_BSPC,
-		KC_ESC,     KC_Q,      KC_W,      KC_E,      KC_R,        KC_T,        KC_LBRC,      KC_RBRC,       KC_Y,      KC_U,       KC_I,       KC_O,       KC_P,        KC_DEL,
-		KC_TAB,     KC_A,      KC_S,      KC_D,      KC_F,        KC_G,        KC_PGUP,      KC_HOME,       KC_H,      KC_J,       KC_K,       KC_L,       KC_SCLN,     KC_QUOT,
-		KC_LSFT,    KC_Z,      KC_X,      KC_C,      KC_V,        KC_B,        KC_PGDN,      KC_END,        KC_N,      KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,     KC_SFTENT,
-		KC_LCTL,    KC_F13,    KC_RCTL,   KC_LALT,   MO(_LWR),          KC_SPACE,                  KC_SFTENT,          MO(_RSE),   KC_RGUI,    KC_HOME,    TG(_GM),      KC_RCTL
+        LANG, 		LCTL(KC_Z),     LCTL(KC_Y),   	  LCTL(KC_C),     RCS(KC_V),    	_______,    	KC_PPLS,     KC_1,       KC_2,           KC_3,       KC_PPLS,    _______,    _______,   _______,
+        KC_APP,     _______,        RCS(KC_LEFT),         _______,            RCS(KC_RIGHT),                   KC_ENT,           KC_0,           KC_DOT,     _______,    _______,    _______,   _______
     )
 
 };
 
+void langcheck(const char *str) {
+			  if (is_rtl) {
+			    tap_code16(A(KC_RSFT));
+				send_string(str);
+				tap_code16(A(KC_RSFT));				
+			  } else {
+				send_string(str);
+			  }
+};
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-	bool eng=true;
+	
   switch (keycode) {
         case BASE:
           if (record->event.pressed) {
@@ -129,78 +137,124 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 		  }
 		  return false;
 		  break;
-		   case WEMAIL:
+		 case BSWORD:
 		   if (record->event.pressed) {
-			   SEND_STRING("______");
+			   tap_code16(RCS(KC_LEFT));
+			   tap_code16(KC_BSPC);
+		   }
+		   return false; 
+		   break;
+		 case DELWORD:
+		   if (record->event.pressed) {
+			   tap_code16(RCS(KC_RIGHT));
+			   tap_code16(KC_DEL);
+		   }
+		   return false; 
+		   break;
+		 case DELBCPS:
+		   if (record->event.pressed) {
+			   tap_code16(KC_BSPC);
+			   tap_code16(KC_DEL);
+		   }
+		   return false; 
+		   break;
+		 case WEMAIL:
+		   if (record->event.pressed) {
+			   langcheck("dorgol@checkpoint.com");
 		   }
 		   return false;
 		   break;
-		  case EMAIL:
+		 case EMAIL:
 		   if (record->event.pressed) {
-			   SEND_STRING("______");
+			   langcheck("dor.golan@gmail.com");
 		   }
 		   return false;
 		   break;
-		  case PWD:
+		 case BR:
 		   if (record->event.pressed) {
-			  SEND_STRING("______");
+			   langcheck("Best regards,");
 		   }
 		   return false;
 		   break;
-		  case BR:
+		 case PWD:
 		   if (record->event.pressed) {
-			   SEND_STRING("Best regards,");
+			  langcheck("Zion7989gol");
+			  tap_code16(KC_ENTER);
+		  }
+		  return false;
+		  break;
+		 case PAREN:
+		   if (record->event.pressed) {
+			   langcheck("()");
+			   if (is_rtl) {
+				   tap_code16(KC_RIGHT);
+			   } else {
+				   tap_code16(KC_LEFT);
+			   }
 		   }
 		   return false;
 		   break;
-		  case PAREN:
+		   case BRACKETS:
 		   if (record->event.pressed) {
-			   SEND_STRING("()");
-			   tap_code16(KC_LEFT);
-			   
+			   langcheck("[]");
+			   if (is_rtl) {
+				   tap_code16(KC_RIGHT);
+			   } else {
+				   tap_code16(KC_LEFT);
+				   
+			   }
+		   }
+		   return false;
+		   break;
+		   case CURLBRACKETS:
+		   if (record->event.pressed) {
+			   langcheck("{}");
+			   if (is_rtl) {
+				   tap_code16(KC_RIGHT);
+			   } else {
+				   tap_code16(KC_LEFT);
+				   
+			   }
 		   }
 		   return false;
 		   break;
 		  case DQT:
 		   if (record->event.pressed) {
-			   SEND_STRING("\"\"");
-			   tap_code16(KC_LEFT);
+			   langcheck("\"\"");
+			   if (is_rtl) {
+				   tap_code16(KC_RIGHT);
+			   } else {
+				   tap_code16(KC_LEFT);
+			   }
 		   }
 		   return false;
 		   break;
 		  case BS:
 		   if (record->event.pressed) {
-			   SEND_STRING("<>");
-			   tap_code16(KC_LEFT);
+			   langcheck("<>");
+			   if (is_rtl) {
+				   tap_code16(KC_RIGHT);
+			   } else {				   
+				   tap_code16(KC_LEFT);
+			   }
 		   }
 		   return false;
 		   break;
-		 
+		 case LINEDEL:
+		   if (record->event.pressed) {
+				   tap_code16(KC_HOME);	   
+				   tap_code16(LSFT(KC_END));
+				   tap_code16(KC_DEL);	
+			   }
+		   return false;
+		   break;
 		 case LANG:
-		  if (record->event.pressed) {
-			  if (eng){
+			if (record->event.pressed) {
+				is_rtl = !is_rtl;
 				tap_code16(A(KC_RSFT));
-				eng=false;
-			} else {
-				tap_code16(A(KC_RSFT));
-				eng=true;
 			}
-		  }
-		  return false;
-		  break;
-		 case PARCHECK:
-		  if (record->event.pressed) {
-			  if (eng) {
-				SEND_STRING("()");
-			   tap_code16(KC_LEFT);
-		  } else {
-			  SEND_STRING("()");
-			  tap_code16(KC_LEFT);
-			  eng=true;
-			}
-		  }
+		  
 		  return false;
 		}
-      
     return true;
-};
+}; 
