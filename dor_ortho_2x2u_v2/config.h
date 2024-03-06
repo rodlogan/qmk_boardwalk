@@ -18,12 +18,27 @@
 // Layer tapping toggle 
 #define TAPPING_TOGGLE 2
 
+// Tap Dance
+#define TAPPING_TERM 180
+#define TAPPING_TERM_PER_KEY
+
 // Layer limit - test
 #define LAYER_STATE_8BIT
 
+// mouse keys
+//#define MK_3_SPEED
+//#define MK_C_OFFSET_UNMOD 2
+//#define MK_C_INTERVAL_UNMOD 0
+//#define MK_C_OFFSET_0 4
+//#define MK_C_INTERVAL_0 0
+//#define MK_C_OFFSET_1 8
+//#define MK_C_INTERVAL_1 0
+//#define MK_C_OFFSET_2 12
+//#define MK_C_INTERVAL_2 0
+
 // Caps Word 
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-#define TAPPING_TERM 1500
+#define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds.
 
 // disabling stuff
 #undef LOCKING_SUPPORT_ENABLE
