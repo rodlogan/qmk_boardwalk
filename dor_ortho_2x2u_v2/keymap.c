@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 	[_BASE] = LAYOUT_ortho_2x2u(
 		TD(MUTE_PLY),  	KC_1,      KC_2,      KC_3,      KC_4,        KC_5,        KC_VOLD,      		KC_VOLU,		 KC_6,      KC_7,       KC_8,       KC_9,       KC_0,        KC_BSPC,
-		KC_ESC,     	KC_Q,      KC_W,      KC_E,      KC_R,        KC_T,        KC_PGDN,      		KC_PGUP,       KC_Y,      KC_U,        KC_I,       KC_O,       KC_P,        KC_DEL,
+		KC_ESC,     	KC_Q,      KC_W,      KC_E,      KC_R,        KC_T,        TD(SFTHOME),     	TD(SFTEND),      KC_Y,      KC_U,        KC_I,       KC_O,       KC_P,        KC_DEL,
 		KC_TAB,     	KC_A,      KC_S,      KC_D,      KC_F,        KC_G,        _______,      		_______,       KC_H,      KC_J,       KC_K,       KC_L,       TD(CT_CLN),     KC_QUOT,
 		LT(0,KC_NO),  	KC_Z,      KC_X,      KC_C,      KC_V,        KC_B,        CTL_T(KC_BSPC),      KC_DEL,          KC_N,      KC_M,       KC_COMM,    KC_DOT,     TD(QMARK),     SC_SENT,
 		KC_LCTL,    	KC_LGUI,   KC_LALT,   TT(_FN),   MO(_LWR),          KC_SPACE,                  			SC_SENT,          MO(_RSE),   KC_RGUI,    LSG(KC_S),    CAPSWORDKEY,      KC_RCTL
@@ -135,8 +135,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_FN] = LAYOUT_ortho_2x2u(
         KC_MPLY,    KC_MPRV,    	KC_MNXT,    	  KC_F3,      	  A(KC_F4),        	C(KC_F5),      	_______,      KC_NUM,	 KC_PSLS,    	 KC_BACKSLASH,   KC_PAST,    _______,    	 _______,   KC_BSPC,
-        KC_WH_U,    LSFT(KC_HOME),  LCTL(KC_HOME),    LSFT(KC_END),   _______,          _______,    	_______,      KC_PPLS,   KC_7,           KC_8,           KC_9,       KC_PPLS,        _______,   KC_DEL,
-        KC_WH_D,    TD(SFTHOME),    LCTL(KC_END),     TD(SFTEND),     	  LINESELECT,       _______,        _______,      _______,   KC_4,      	 KC_5,           KC_6,       KC_MINS,        _______,   _______, 
+        KC_PGUP,    LSFT(KC_HOME),  LCTL(KC_HOME),    LSFT(KC_END),   _______,          _______,    	_______,      KC_PPLS,   KC_7,           KC_8,           KC_9,       KC_PPLS,        _______,   KC_DEL,
+        KC_PGDN,    TD(SFTHOME),    LCTL(KC_END),     TD(SFTEND),     LINESELECT,       _______,        _______,      _______,   KC_4,      	 KC_5,           KC_6,       KC_MINS,        _______,   _______, 
         KC_LSFT, 	RCS(KC_TAB),    LCTL(KC_TAB),     LCTL(KC_T),     LCTL(KC_W),    	RCS(KC_T),    	_______,      KC_MINS,   KC_1,     	 	 KC_2,           KC_3,       _______,        _______,   _______,
         KC_APP,     _______,        RCS(KC_LEFT),     _______,        RCS(KC_RIGHT),             KC_ENT,           KC_0,         KC_DOT,    	 _______,    	 _______,    _______,    	 _______
     ),
@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		   break;
 		 case PWD:
 		   if (record->event.pressed) {
-			  langcheck("fillme");
+			  langcheck("Loganrod42");
 		  }
 		  return false;
 		  break;
