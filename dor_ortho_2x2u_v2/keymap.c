@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		   break;
 		 case PWD:
 		   if (record->event.pressed) {
-			  langcheck("Loganrod42");
+			  langcheck("fillme");
 		  }
 		  return false;
 		  break;
